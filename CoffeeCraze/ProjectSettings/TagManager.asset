@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - CoffeeShop
   layers:
   - Default
   - TransparentFX
@@ -52,6 +53,9 @@ TagManager:
     locked: 0
   - name: Entities
     uniqueID: 2813568797
+    locked: 0
+  - name: CoffeeShop
+    uniqueID: 216390071
     locked: 0
   m_RenderingLayers:
   - Default
