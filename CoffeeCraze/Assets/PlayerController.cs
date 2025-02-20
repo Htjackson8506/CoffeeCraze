@@ -58,9 +58,9 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
         
         // Rotation towards mouse
-        Vector2 lookDirection = mousePosition - rb.position;
-        float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        rb.rotation = angle;
+        //Vector2 lookDirection = mousePosition - rb.position;
+        //float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+        //rb.rotation = angle;
     }
 
     private void Shoot()
