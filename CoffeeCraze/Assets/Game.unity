@@ -111028,6 +111028,7 @@ GameObject:
   - component: {fileID: 444959156}
   - component: {fileID: 444959155}
   - component: {fileID: 444959154}
+  - component: {fileID: 444959158}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -111147,12 +111148,24 @@ Transform:
   m_GameObject: {fileID: 444959153}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 7.14, y: -1.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &444959158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444959153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c0af98cdb575074e9c22d7b4a655f37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &573034270
 GameObject:
   m_ObjectHideFlags: 0
@@ -111235,7 +111248,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1224593594}
   fireRate: 0.5
   bulletSpeed: 10
-  trail: {fileID: 0}
+  trail: {fileID: 1224593600}
   shootSound: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
   footstepSound: {fileID: 8300000, guid: 59cd085e234f32e4daddd2e589174a96, type: 3}
 --- !u!212 &757246023
@@ -111323,7 +111336,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -111394,7 +111407,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
   m_Resource: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.7
+  m_Volume: 0.305
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -116546,7 +116559,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: f6b9be2f0ee9dd14c8f9f28cda35866c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116564,11 +116577,11 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Time: 20
-  m_PreviewTimeScale: 0
+  m_SortingLayerID: -1481398499
+  m_SortingLayer: 4
+  m_SortingOrder: 4
+  m_Time: 0.5
+  m_PreviewTimeScale: 0.5
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -116576,8 +116589,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.5025406
+        time: 0.5039787
+        value: 0.5144501
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -116589,15 +116602,15 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.2735849, g: 0.20291135, b: 0.10194909, a: 1}
-      key1: {r: 0.2735849, g: 0.20291135, b: 0.10194909, a: 1}
-      key2: {r: 0.2735849, g: 0.20291135, b: 0.10194909, a: 0}
+      key0: {r: 0.2924528, g: 0.21061446, b: 0.03724635, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0.2735849, g: 0.20291135, b: 0.10194909, a: 1}
       key3: {r: 0.2735849, g: 0.20291135, b: 0.10194909, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
+      ctime0: 21395
       ctime1: 65535
       ctime2: 42212
       ctime3: 42212
@@ -116605,9 +116618,9 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 37972
-      atime1: 45875
-      atime2: 0
+      atime0: 31997
+      atime1: 36430
+      atime2: 47031
       atime3: 0
       atime4: 0
       atime5: 0
@@ -116616,9 +116629,9 @@ TrailRenderer:
       m_Mode: 0
       m_ColorSpace: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+      m_NumAlphaKeys: 3
+    numCornerVertices: 5
+    numCapVertices: 3
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
@@ -116628,7 +116641,7 @@ TrailRenderer:
   m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
-  m_ApplyActiveColorSpace: 1
+  m_ApplyActiveColorSpace: 0
 --- !u!1 &1591249482
 GameObject:
   m_ObjectHideFlags: 0
