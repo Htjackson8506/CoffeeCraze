@@ -9,6 +9,8 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Button movementSpeedButton;
     [SerializeField] private Button closeButton;
 
+    [SerializeField] private Button openButton;
+
     private void Start()
     {
         if (shopPanel == null)
@@ -23,20 +25,22 @@ public class ShopUI : MonoBehaviour
         attackSpeedButton.onClick.AddListener(() => BuyUpgrade("AttackSpeed"));
         movementSpeedButton.onClick.AddListener(() => BuyUpgrade("MovementSpeed"));
         closeButton.onClick.AddListener(CloseShop);
+        openButton.onClick.AddListener(OpenShop);
+        
     }
 
     public void OpenShop()
     {
         Debug.Log("✅ Shop UI Opened!");
         shopPanel.SetActive(true);
-        Time.timeScale = 0; // Pause game
+        //Time.timeScale = 0; // Pause game
     }
 
     public void CloseShop()
     {
         Debug.Log("✅ Shop UI Closed!");
         shopPanel.SetActive(false);
-        Time.timeScale = 1; // Resume game
+        //Time.timeScale = 1; // Resume game
     }
 
     private void BuyUpgrade(string upgradeType)
