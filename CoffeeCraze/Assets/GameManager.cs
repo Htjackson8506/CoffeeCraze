@@ -4,9 +4,15 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     
+    [SerializeField] private DialoguePanel dialoguePanel;
+    [SerializeField] private DialogueAsset startDialogue;
     [SerializeField] private CoinUI coinUI;  // Fixed the type declaration
     private int currentCurrency;  // Only declare once
 
+    void Start()
+    {
+        dialoguePanel.ShowDialogue(startDialogue);
+    }
     void Awake()
     {
         if (Instance == null)

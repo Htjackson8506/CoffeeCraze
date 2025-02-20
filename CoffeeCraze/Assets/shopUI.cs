@@ -92,11 +92,13 @@ public class ShopUI : MonoBehaviour
         Debug.Log("✅ Shop UI Opened!");
         shopPanel.SetActive(true);
         UpdateButtonStates();
+        Time.timeScale = 0;
     }
 
     public void CloseShop()
     {
         Debug.Log("✅ Shop UI Closed!");
         shopPanel.SetActive(false);
+        Time.timeScale = 1;
     }
 }
