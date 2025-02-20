@@ -4,8 +4,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     
-    [SerializeField] private int startingCurrency = 100;
-    private int currentCurrency;
+    [SerializeField] private CoinUI coinUI;  // Fixed the type declaration
+    private int currentCurrency;  // Only declare once
 
     void Awake()
     {
@@ -20,9 +20,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
+    public int GetCurrentCurrency()
     {
-        currentCurrency = startingCurrency;
+        return currentCurrency;
+    }
+
+    public void AddCurrency(int amount)
+    {
+        currentCurrency += amount;
+        coinUI.UpdateCoinDisplay(currentCurrency);
     }
 
     public bool SpendCurrency(int amount)
@@ -30,13 +36,9 @@ public class GameManager : MonoBehaviour
         if (currentCurrency >= amount)
         {
             currentCurrency -= amount;
+            coinUI.UpdateCoinDisplay(currentCurrency);
             return true;
         }
         return false;
-    }
-
-    public void AddCurrency(int amount)
-    {
-        currentCurrency += amount;
     }
 }
