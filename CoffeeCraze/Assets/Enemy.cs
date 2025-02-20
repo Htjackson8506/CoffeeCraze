@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private GameObject coinPrefab;
     [SerializeField] private float speed = 2f;
     [SerializeField] private int health = 100;
     [SerializeField] private int damage = 10;
     [SerializeField] private int currencyValue = 10;
+    
     
     [Header("Effects")]
     [SerializeField] private ParticleSystem deathEffect;
@@ -54,23 +56,33 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        if (isDead) return;
         isDead = true;
-        
+            
         // Play effects before destroying
         if (deathEffect != null)
         {
             ParticleSystem effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
             Destroy(effect.gameObject, effect.main.duration);  // Clean up effect after it's done
         }
-        
+            
         if (deathSound != null)
         {
             AudioSource.PlayClipAtPoint(deathSound, transform.position);
         }
-        
-        // Award currency
+
+        // Drop coin
+        if (coinPrefab != null)
+        {
+            // Add a small random offset so coins don't stack perfectly
+            Vector2 offset = Random.insideUnitCircle * 0.5f;
+            Vector3 spawnPosition = transform.position + new Vector3(offset.x, offset.y, 0);
+            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
+        }
+            
+        // Award base currency
         GameManager.Instance.AddCurrency(currencyValue);
-        
+            
         // Destroy after a tiny delay to ensure effects start playing
         Destroy(gameObject, 0.1f);
     }
