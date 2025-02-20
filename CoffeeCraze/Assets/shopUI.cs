@@ -3,15 +3,21 @@ using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
 {
-    public GameObject shopPanel;
-    public Button attackDamageButton;
-    public Button attackSpeedButton;
-    public Button movementSpeedButton;
-    public Button closeButton;
+    [SerializeField] private GameObject shopPanel;
+    [SerializeField] private Button attackDamageButton;
+    [SerializeField] private Button attackSpeedButton;
+    [SerializeField] private Button movementSpeedButton;
+    [SerializeField] private Button closeButton;
 
     private void Start()
     {
-        shopPanel.SetActive(false);
+        if (shopPanel == null)
+        {
+            Debug.LogError("❌ ShopPanel is not assigned in the Inspector!");
+            return;
+        }
+
+        shopPanel.SetActive(false); // Start with shop closed
 
         attackDamageButton.onClick.AddListener(() => BuyUpgrade("AttackDamage"));
         attackSpeedButton.onClick.AddListener(() => BuyUpgrade("AttackSpeed"));
@@ -21,14 +27,16 @@ public class ShopUI : MonoBehaviour
 
     public void OpenShop()
     {
+        Debug.Log("✅ Shop UI Opened!");
         shopPanel.SetActive(true);
-        Time.timeScale = 0;
+        Time.timeScale = 0; // Pause game
     }
 
     public void CloseShop()
     {
+        Debug.Log("✅ Shop UI Closed!");
         shopPanel.SetActive(false);
-        Time.timeScale = 1;
+        Time.timeScale = 1; // Resume game
     }
 
     private void BuyUpgrade(string upgradeType)
@@ -45,6 +53,5 @@ public class ShopUI : MonoBehaviour
                 UpgradeSystem.Instance.UpgradeMovementSpeed();
                 break;
         }
-        CloseShop();
     }
 }
