@@ -16,32 +16,37 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        target = GameObject.FindGameObjectWithTag("CoffeeShop").transform;
+        GameObject coffeeShop = GameObject.FindGameObjectWithTag("CoffeeShop");
+        if (coffeeShop != null)
+        {
+            target = coffeeShop.transform;
+        }
     }
 
     private void Update()
     {
-        if (!isDead && target != null)
-        {
-            // Move towards coffee shop
-            transform.position = Vector2.MoveTowards(
-                transform.position,
-                target.position,
-                speed * Time.deltaTime
-            );
-            
-            // Rotate towards movement direction
-            Vector2 direction = (target.position - transform.position).normalized;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle);
-        }
+        if (isDead || target == null) return;  // Early return if dead or no target
+
+        // Move towards coffee shop
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            target.position,
+            speed * Time.deltaTime
+        );
+        
+        // Rotate towards movement direction
+        Vector2 direction = (target.position - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     public void TakeDamage(int amount)
     {
+        if (isDead) return;  // Don't process damage if already dead
+        
         health -= amount;
         
-        if (health <= 0 && !isDead)
+        if (health <= 0)
         {
             Die();
         }
@@ -51,13 +56,13 @@ public class Enemy : MonoBehaviour
     {
         isDead = true;
         
-        // Spawn effects
+        // Play effects before destroying
         if (deathEffect != null)
         {
-            Instantiate(deathEffect, transform.position, Quaternion.identity);
+            ParticleSystem effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
+            Destroy(effect.gameObject, effect.main.duration);  // Clean up effect after it's done
         }
         
-        // Play sound
         if (deathSound != null)
         {
             AudioSource.PlayClipAtPoint(deathSound, transform.position);
@@ -66,15 +71,28 @@ public class Enemy : MonoBehaviour
         // Award currency
         GameManager.Instance.AddCurrency(currencyValue);
         
-        Destroy(gameObject);
+        // Destroy after a tiny delay to ensure effects start playing
+        Destroy(gameObject, 0.1f);
+    }
+
+    public void SetProperties(float speed, int health)
+    {
+        this.speed = speed;
+        this.health = health;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isDead) return;  // Don't process collision if dead
+
         if (collision.gameObject.CompareTag("CoffeeShop"))
         {
-            collision.gameObject.GetComponent<CoffeeShop>().TakeDamage(damage);
-            Destroy(gameObject);
+            CoffeeShop coffeeShop = collision.gameObject.GetComponent<CoffeeShop>();
+            if (coffeeShop != null)
+            {
+                coffeeShop.TakeDamage(damage);
+                Die();
+            }
         }
     }
 }
