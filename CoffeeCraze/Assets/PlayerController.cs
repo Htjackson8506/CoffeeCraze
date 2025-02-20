@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float baseBulletSpeed = 10f;
     [SerializeField] private Transform firePoint;
     private float fireRate;
-    private float bulletSpeed;
+    private int attackDamage;
 
     [Header("Audio")]
     [SerializeField] private AudioClip shootSound;
@@ -34,18 +34,19 @@ public class PlayerController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         Cursor.visible = false;
 
-        // Initialize values from the Upgrade System
+        // Initialize stats
         ApplyUpgrades();
     }
 
     private void Update()
     {
-        // Get upgraded values every frame
-        ApplyUpgrades();
-
-        // Input
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        if (movement.magnitude > 1)
+            movement.Normalize();
+
+        ApplyUpgrades();
 
         // Mouse position
         mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -67,8 +68,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Movement with upgrade effect
-        rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+        rb.linearVelocity = movement * moveSpeed;
     }
 
     private void Shoot()
@@ -79,11 +79,14 @@ public class PlayerController : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
         Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
 
-        // Apply bullet speed upgrade
-        bulletRb.AddForce(shootDirection * bulletSpeed, ForceMode2D.Impulse);
+        bulletRb.AddForce(shootDirection * baseBulletSpeed, ForceMode2D.Impulse);
 
-        // Apply bullet size upgrade
-        bullet.transform.localScale *= UpgradeSystem.Instance.GetProjectileSize();
+        // Apply attack damage to bullet
+        Bullet bulletScript = bullet.GetComponent<Bullet>();
+        if (bulletScript != null)
+        {
+            bulletScript.SetDamage(attackDamage);
+        }
 
         // Play shoot sound
         if (shootSound != null)
@@ -96,7 +99,7 @@ public class PlayerController : MonoBehaviour
     {
         if (footstepSound != null)
         {
-            audioSource.PlayOneShot(footstepSound, 0.7f); // 0.7f is volume, adjust as needed
+            audioSource.PlayOneShot(footstepSound, 0.7f);
         }
     }
 
@@ -106,7 +109,7 @@ public class PlayerController : MonoBehaviour
         {
             moveSpeed = UpgradeSystem.Instance.GetMovementSpeed();
             fireRate = UpgradeSystem.Instance.GetAttackSpeed();
-            bulletSpeed = baseBulletSpeed; // Bullet speed remains the same, but size changes
+            attackDamage = UpgradeSystem.Instance.GetAttackDamage();
         }
     }
 }

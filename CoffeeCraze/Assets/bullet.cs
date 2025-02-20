@@ -5,6 +5,11 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int damage = 20;
     [SerializeField] private GameObject hitEffect;
     
+
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
