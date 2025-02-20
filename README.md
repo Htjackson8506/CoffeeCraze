@@ -23,4 +23,4 @@ https://opengameart.org/content/icons-food
 
 https://opengameart.org/content/zelda-like-tilesets-and-sprites
 ## Contributions
-Joseph created the main structure of the game, including the player, enemies, background world, and basic UI elements. Joseph is also responsible for implementing the coins. Henry worked on the upgrades system, created the tilemaps, and the upgrade system.
+Joseph created the main structure of the game, including the player, enemies, background world, and basic UI elements. Joseph is also responsible for implementing the coins. Henry worked on the upgrades system, created the tilemaps, and the upgrade system. Henry also created the dialogue panel at the beginning of the game.
