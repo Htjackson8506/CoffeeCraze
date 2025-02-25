@@ -30,6 +30,10 @@ public class GameOverManager : MonoBehaviour
     {
         // Reset time scale
         Time.timeScale = 1f;
+
+        // Set a flag in PlayerPrefs to indicate a restart
+        PlayerPrefs.SetInt("GameRestarted", 1);
+        PlayerPrefs.Save();
         
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

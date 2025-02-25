@@ -68,7 +68,19 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = movement * moveSpeed;
+        // Use MovePosition instead of directly setting linearVelocity
+        // This respects collisions better
+        Vector2 newPosition = rb.position + movement * moveSpeed * Time.fixedDeltaTime;
+        rb.MovePosition(newPosition);
+        
+        // Debug collision
+        Debug.DrawRay(transform.position, movement * 0.5f, Color.red);
+    }
+
+    //debug method to detect collisions
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Player Collided with: " + collision.gameObject.name);
     }
 
     private void Shoot()
